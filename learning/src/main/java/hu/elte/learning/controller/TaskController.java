@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 package hu.elte.learning.controller;
+import hu.elte.learning.entity.Solution;
 import hu.elte.learning.entity.Task;
 import hu.elte.learning.entity.User;
+import hu.elte.learning.repository.SolutionRepository;
 import hu.elte.learning.repository.TaskRepository;
 import hu.elte.learning.repository.UserRepository;
 import java.security.Principal;
@@ -36,11 +38,25 @@ public class TaskController {
     @Autowired
     private UserRepository userRepository;
     
+    @Autowired
+    private SolutionRepository solutionRepository;
+    
     @RequestMapping("/")
     public String index(Model model) {
         Iterable<Task> tasks = taskRepository.findAll();
         model.addAttribute("tasks", tasks);
         return "tasks";  //tasks.html
+    }  
+    
+    @RequestMapping("/success/{id}")
+    public String success(@PathVariable long id, Model model) {
+        Task task = taskRepository.findOne(id);
+        model.addAttribute("task", task);
+        /*
+        Iterable<Task> tasks = taskRepository.findAll();
+        model.addAttribute("tasks", tasks);
+        */
+        return "success";  //success.html
     }
     
     @GetMapping("/show/{id}")
@@ -52,30 +68,34 @@ public class TaskController {
     
     
     @GetMapping("/solve/{id}")
-    public String solve(/*Task task, */@PathVariable long id, Model model) {
+    public String solve(/*Task task, */Solution solution,@PathVariable long id, Model model) {
         Task task = taskRepository.findOne(id);
+        solution.setSolution_text("");
         model.addAttribute("task", task);
+        model.addAttribute("solution", solution);
         return "form"; //form.html
     }
     
     @PostMapping("/solve/{id}")
     public String solveTask(
-            @Valid Task task,
+            @Valid Solution solution,
+            @PathVariable long id,
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes,
             Principal principal) {
         if (bindingResult.hasErrors()) {
             return "form";
         }
-        
+        /*
         User user = userRepository.findByUsername(principal.getName());
         List<User> updateusers = task.getUsers();
         updateusers.add(user);
         task.setUsers(updateusers);
         taskRepository.save(task);
+        */
 
-        redirectAttributes.addFlashAttribute("message", "Recipe successfully added!");
-        return "redirect:/";
+        redirectAttributes.addFlashAttribute("message", "Solution successfully added!");
+        return "redirect:/success/{id}";
     }
     
 }

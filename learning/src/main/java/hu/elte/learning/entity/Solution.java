@@ -5,6 +5,7 @@ package hu.elte.learning.entity;
  * @author sofia
  */
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -36,6 +37,6 @@ public class Solution implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     
-    @NotBlank
+    @Column(nullable=true)
     private String solution_text;
 }
