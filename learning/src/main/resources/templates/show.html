@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html layout:decorator="layout">
+    <head>
+        <title th:text="${task.task_name}">Login - Tasks</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+
+            <h2 class="display-2 my-3" th:text="${task.task_name}">Gulyás soup</h2>
+
+
+            <div class="row">
+                <div class="col">
+                    <p>Description:</p>
+                    <p th:text="${task.task_description}">Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla </p>
+                    <a href="#" class="btn btn-primary" th:href="@{/show/{id}(id=${task.id})}">Solve</a>
+                </div>
+            </div>
+
+
+        </div>
+    </body>
+</html>
+
