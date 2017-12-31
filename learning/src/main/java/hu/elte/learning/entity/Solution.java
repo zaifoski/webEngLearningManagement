@@ -25,7 +25,6 @@ import org.hibernate.validator.constraints.NotBlank;
 @AllArgsConstructor
 public class Solution implements Serializable {
     
-    @JoinColumn
     @ManyToOne(targetEntity = Task.class, optional = false)
     private Task task;
     
