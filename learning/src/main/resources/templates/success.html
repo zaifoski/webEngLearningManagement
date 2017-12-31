@@ -17,7 +17,6 @@
             <h4 class="display-4">For task: <b th:text="${task.task_name}"></b></h4>
 
             <div class="row">
-
                 <div th:each="task : ${tasks}" class="col-12 col-md-6 col-lg-4" style="display: flex">
                     <div class="card my-3 w-100">
                         <!--<img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg/1200px-Good_Food_Display_-_NCI_Visuals_Online.jpg" alt="Card image cap" 
@@ -32,9 +31,18 @@
                         </div>
                     </div>
                 </div>
-
-
-
+            </div>
+            
+            <div class="row">
+                <div th:each="solution : ${solutions}" class="col-12 col-md-6 col-lg-4" style="display: flex">
+                    <div class="card my-3 w-100">
+                        <div class="card-body">
+                            <h4 class="card-title" th:text="${solution.task.task_name}">Card title</h4>
+                            <h6 class="card-subtitle mb-2 text-muted" th:text="${solution.user.username}">Card subtitle</h6>
+                            <p class="card-text" th:text="${solution.solution_text}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
             
         </div>

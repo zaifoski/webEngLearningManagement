@@ -22,57 +22,25 @@
             </div>
 
             <hr/>
-            <form action="#" th:action="@{/solve/{id}(id=${task.id})}" th:object="${task}" method="post">
+            <form action="#" th:action="@{/solve/{id}(id=${task.id})}" th:object="${solution}" method="post">
 
 
                 <div class="form-group">
                     <label for="task_description">Solution:</label>
-                    <textarea></textarea>
-                    <!--<textarea th:field="*{solution.solution_text}" 
-                              class="form-control" 
-                              rows="3"
-                              th:errorclass="is-invalid"></textarea>-->
-                    <div class="invalid-feedback" 
-                         th:if="${#fields.hasErrors('task_description')}" 
-                         th:errors="*{task_description}">
-                        Please provide a task solution!
-                    </div>
-                </div>
-
-                <!--
-                <div class="form-group">
-                    <label for="ingredients">Ingredients</label>
-                    <textarea th:field="*{ingredients}" 
+                    <!--<textarea></textarea>-->
+                    <textarea th:field="${solution.solution_text}" 
                               class="form-control" 
                               rows="3"
                               th:errorclass="is-invalid"></textarea>
-                    <div class="invalid-feedback" 
-                         th:if="${#fields.hasErrors('ingredients')}" 
-                         th:errors="*{ingredients}">
-                        Please provide ingredients!
-                    </div>
+                    <!--<div class="invalid-feedback" 
+                         th:if="${#fields.hasErrors('solution.solution_text')}" 
+                         th:errors="*{solution.solution_text}">
+                        Please provide a task solution!
+                    </div>-->
                 </div>
-                
-                <div class="form-group">
-                    <label for="imgurl">Image url</label>
-                    <input type="text" 
-                           th:field="*{imgUrl}" 
-                           class="form-control" 
-                           placeholder="Task image URL" 
-                           th:errorclass="is-invalid"
-                           />
-                    <div class="invalid-feedback" 
-                         th:if="${#fields.hasErrors('imgUrl')}" 
-                         th:errors="*{imgUrl}">
-                        Please provide a task task_name!
-                    </div>
-                </div>
-                -->
 
                 <button type="submit" class="btn btn-primary">Add submission</button>
 
-
-                <!-- ... -->
             </form>
             
         </div>

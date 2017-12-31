@@ -37,6 +37,6 @@ public class Solution implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     
-    @Column(nullable=true)
+    @NotBlank
     private String solution_text;
 }

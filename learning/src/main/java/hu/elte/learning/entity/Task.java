@@ -28,7 +28,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Task implements Serializable {
 
     @OneToMany(targetEntity = Solution.class, mappedBy = "task")
-    private List<String> solutions;
+    private List<Solution> solutions;
     
     @JoinColumn
     @ManyToMany(targetEntity = User.class)

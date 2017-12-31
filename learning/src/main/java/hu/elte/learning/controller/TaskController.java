@@ -52,10 +52,12 @@ public class TaskController {
     public String success(@PathVariable long id, Model model) {
         Task task = taskRepository.findOne(id);
         model.addAttribute("task", task);
-        /*
-        Iterable<Task> tasks = taskRepository.findAll();
-        model.addAttribute("tasks", tasks);
-        */
+        
+        //Iterable<Solution> solutions = task.getSolutions();
+        //Iterable<Solution> solutions = solutionRepository.findAll();
+        List<Solution> solutions = task.getSolutions();
+        model.addAttribute("solutions", solutions);
+        
         return "success";  //success.html
     }
     
@@ -70,9 +72,7 @@ public class TaskController {
     @GetMapping("/solve/{id}")
     public String solve(/*Task task, */Solution solution,@PathVariable long id, Model model) {
         Task task = taskRepository.findOne(id);
-        solution.setSolution_text("");
         model.addAttribute("task", task);
-        model.addAttribute("solution", solution);
         return "form"; //form.html
     }
     
@@ -86,13 +86,29 @@ public class TaskController {
         if (bindingResult.hasErrors()) {
             return "form";
         }
-        /*
+        Task task = taskRepository.findOne(id);
         User user = userRepository.findByUsername(principal.getName());
-        List<User> updateusers = task.getUsers();
-        updateusers.add(user);
-        task.setUsers(updateusers);
-        taskRepository.save(task);
-        */
+        System.out.println(user.getUsername());
+        //salvo la nuova soluzione
+        solution.setTask(task);
+        solution.setUser(user);
+        solutionRepository.save(solution);
+        //aggiungo il nuovo user al task
+        List<User> updatedusers = task.getUsers();
+        updatedusers.add(user);
+        task.setUsers(updatedusers);
+        //aggiungo la nuova solution al task        
+        List<Solution> updatedsolutions = task.getSolutions();
+        updatedsolutions.add(solution);
+        task.setSolutions(updatedsolutions);  
+        //aggiungo la nuova solution allo user        
+        List<Solution> updatedsolutions2 = user.getSolutions();
+        updatedsolutions2.add(solution);
+        user.setSolutions(updatedsolutions2);      
+        //aggiungo il nuovo task allo user
+        List<Task> updatedtasks = user.getTasks();
+        updatedtasks.add(task);
+        user.setTasks(updatedtasks);    
 
         redirectAttributes.addFlashAttribute("message", "Solution successfully added!");
         return "redirect:/success/{id}";
